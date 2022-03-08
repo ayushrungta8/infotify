@@ -48,7 +48,8 @@ const Container = styled.div`
 `;
 const Input = styled.input`
   @media (max-width: 700px) {
-    width: 270px;
+    width: 80%;
+    min-width: 300px;
   }
   padding: 10px;
   border: none;
@@ -62,7 +63,8 @@ const Input = styled.input`
 `;
 const Button = styled.button`
   @media (max-width: 700px) {
-    width: 170px;
+    width: 60%;
+    min-width: 200px;
   }
   padding: 10px;
   border: none;
