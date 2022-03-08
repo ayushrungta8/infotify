@@ -47,6 +47,9 @@ const Container = styled.div`
   align-items: center;
 `;
 const Input = styled.input`
+  @media (max-width: 700px) {
+    width: 270px;
+  }
   padding: 10px;
   border: none;
   border-radius: 12px;
@@ -58,6 +61,9 @@ const Input = styled.input`
   }
 `;
 const Button = styled.button`
+  @media (max-width: 700px) {
+    width: 170px;
+  }
   padding: 10px;
   border: none;
   border-radius: 12px;
