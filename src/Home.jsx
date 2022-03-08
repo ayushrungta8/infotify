@@ -25,13 +25,7 @@ const Home = () => {
         onChange={(e) => handleValidation(e.target.value)}
         placeholder="Youtube URL"
       />
-      {emailField && (
-        <Input
-          type="text"
-          onChange={(e) => handleValidation(e.target.value)}
-          placeholder="Your Email"
-        />
-      )}
+      {emailField && <Input type="text" placeholder="Your Email" />}
       <Button
         disabled={!active}
         onClick={() => {
