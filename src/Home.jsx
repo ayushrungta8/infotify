@@ -15,7 +15,7 @@ const Home = () => {
       setEmailField(true);
     } else {
       setActive(false);
-      setEmailField(true);
+      setEmailField(false);
     }
   };
   return (
