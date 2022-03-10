@@ -1,15 +1,20 @@
+import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 
 const Home = () => {
   const [active, setActive] = useState(false);
   const [emailField, setEmailField] = useState(false);
+  const [videoId, setVideoId] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const endpoint = "https://infotify.herokuapp.com/get-comments";
   const handleValidation = (url) => {
     var regExp =
       /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     var match = url.match(regExp);
     console.log(match);
     if (match && match[1].length === 11) {
+      setVideoId(match[1]);
       console.log(url);
       setActive(true);
       setEmailField(true);
@@ -18,26 +23,41 @@ const Home = () => {
       setEmailField(false);
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(endpoint, { id: videoId, email: emailId });
+      alert("Request Submitted Successfully");
+    } catch (err) {
+      alert("Request Failed");
+    }
+  };
   return (
-    <Container>
+    <Container
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+    >
       <Input
         type="text"
         onChange={(e) => handleValidation(e.target.value)}
         placeholder="Youtube URL"
       />
-      {emailField && <Input type="text" placeholder="Your Email" />}
-      <Button
-        disabled={!active}
-        onClick={() => {
-          alert("Request Submitted Successfully");
-        }}
-      >
+      {emailField && (
+        <Input
+          type="email"
+          autoComplete
+          placeholder="Your Email"
+          onChange={(e) => setEmailId(e.target.value)}
+        />
+      )}
+      <Button disabled={!active} type="submit">
         Submit
       </Button>
     </Container>
   );
 };
-const Container = styled.div`
+const Container = styled.form`
   background-color: #9fd398;
   width: 100vw;
   height: 100vh;
