@@ -7,8 +7,10 @@ const Home = () => {
   const [emailField, setEmailField] = useState(false);
   const [videoId, setVideoId] = useState("");
   const [emailId, setEmailId] = useState("");
+  const [url, setUrl] = useState("");
   const endpoint = "https://infotify.herokuapp.com/get-comments";
   const handleValidation = (url) => {
+    setUrl(url);
     var regExp =
       /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     var match = url.match(regExp);
@@ -28,6 +30,11 @@ const Home = () => {
     try {
       await axios.post(endpoint, { id: videoId, email: emailId });
       alert("Request Submitted Successfully");
+      setEmailField(false);
+      setActive(false);
+      setEmailId("");
+      setVideoId("");
+      setUrl("");
     } catch (err) {
       alert("Request Failed");
     }
@@ -39,6 +46,7 @@ const Home = () => {
       }}
     >
       <Input
+        value={url}
         type="text"
         onChange={(e) => handleValidation(e.target.value)}
         placeholder="Youtube URL"
@@ -49,6 +57,7 @@ const Home = () => {
           autoComplete
           placeholder="Your Email"
           onChange={(e) => setEmailId(e.target.value)}
+          value={emailId}
         />
       )}
       <Button disabled={!active} type="submit">
